@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace KPO
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Task 1");
+            Task1 task1 = new Task1();
+            task1.Start();
+            Console.ReadLine();
+        }
+    }
+}
