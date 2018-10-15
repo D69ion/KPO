@@ -15,6 +15,11 @@ namespace KPO
             Task1 task1 = new Task1();
             task1.Start();
             Console.ReadLine();
+
+            Console.WriteLine("Task 2");
+            Task2 task2 = new Task2();
+            task2.Start();
+            Console.ReadLine();
         }
     }
 }
