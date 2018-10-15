@@ -8,10 +8,17 @@ namespace KPO
 {
     class Task2
     {
-        //static Random random = new Random();
-        const int m = 6, N = 200, R = 100;
-        List<Tuple<int, bool>> tree = new List<Tuple<int, bool>>();
-        double alpha = 0.0;
+        //private static Random random;
+        private const int m = 6, N = 200, R = 100;
+        private List<Tuple<int, bool>> tree;
+        private double alpha;
+
+        public Task2()
+        {
+            //random = new Random();
+            tree = new List<Tuple<int, bool>>();
+            alpha = 0.0;
+        }
 
         public void Start()
         {
