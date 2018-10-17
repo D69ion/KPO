@@ -45,14 +45,17 @@ namespace KPO
                         }
                         else
                             break;
-                        if (tree[i].Item1 == i)
+                        if (tree[i].Item1 >= i)
                         {
-                            tree.Clear();
+                            tree = new List<Tuple<int, bool>>();
                             goto treeGeneration;
                         }
                     }
                     if (tree.Count >= N)
+                    {
+                        i = 0;
                         break;
+                    }
                 }
 
                 //for (int i = 1; i < tree.Count; i++)
@@ -72,6 +75,7 @@ namespace KPO
                 }
                 alphas.Add((double)tree.Count / (double)freeNodesQuantity);
                 freeNodesQuantities.Add(freeNodesQuantity);
+                tree = new List<Tuple<int, bool>>();
             }
 
             Console.WriteLine("Average free nodes = " + freeNodesQuantities.Average());
