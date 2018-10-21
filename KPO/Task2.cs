@@ -25,28 +25,37 @@ namespace KPO
             treeGeneration:
             tree.Add(null);
             tree.Add(new Tuple<int, bool>(0, false));
-            for (int i = 1; ; i++)
+            try
             {
-                int childQuantity = 3;//random.Next(0, 6);
-                if (childQuantity == 0)
-                    continue;
-                for (int j = 0; j < childQuantity; j++)
+                for (int i = 1; ; i++)
                 {
-                    if (tree.Count <= N)
+                    int childQuantity = 3;//random.Next(0, 6);
+                    if (childQuantity == 0)
+                        continue;
+                    for (int j = 0; j < childQuantity; j++)
                     {
-                        tree.Add(new Tuple<int, bool>(i, true));
-                        tree[i] = new Tuple<int, bool>(tree[i].Item1, false);
+                        if (tree.Count <= N)
+                        {
+                            tree.Add(new Tuple<int, bool>(i, true));
+                            tree[i] = new Tuple<int, bool>(tree[i].Item1, false);
+                        }
+                        else
+                            break;
+                        if (tree[i].Item1 == i)
+                        {
+                            tree.Clear();
+                            goto treeGeneration;
+                        }
                     }
-                    else
+                    if (tree.Count >= N)
                         break;
-                    if (tree[i].Item1 == i)
-                    {
-                        tree.Clear();
-                        goto treeGeneration;
-                    }
                 }
-                if (tree.Count >= N)
-                    break;
+
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                tree.Clear();
+                goto treeGeneration;
             }
 
             for (int i = 1; i < tree.Count; i++)

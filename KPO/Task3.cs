@@ -31,48 +31,45 @@ namespace KPO
                 treeGeneration:
                 tree.Add(null);
                 tree.Add(new Tuple<int, bool>(0, false));
-                for (int i = 1; ; i++)
+                try
                 {
-                    int childQuantity = random.Next(0, 6);
-                    if (childQuantity == 0)
-                        continue;
-                    for (int j = 0; j < childQuantity; j++)
+                    for (int i = 1; ; i++)
                     {
-                        if (tree.Count <= N)
+                        int childQuantity = random.Next(0, 6);
+                        if (childQuantity == 0)
+                            continue;
+                        for (int j = 0; j < childQuantity; j++)
                         {
-                            tree.Add(new Tuple<int, bool>(i, true));
-                            tree[i] = new Tuple<int, bool>(tree[i].Item1, false);
+                            if (tree.Count <= N)
+                            {
+                                tree.Add(new Tuple<int, bool>(i, true));
+                                tree[i] = new Tuple<int, bool>(tree[i].Item1, false);
+                            }
+                            else
+                                break;
+                            if (tree[i].Item1 >= i)
+                            {
+                                tree.Clear();
+                                goto treeGeneration;
+                            }
                         }
-                        else
+                        if (tree.Count >= N)
+                        {
+                            i = 0;
                             break;
-                        if (tree[i].Item1 >= i)
-                        {
-                            tree = new List<Tuple<int, bool>>();
-                            goto treeGeneration;
                         }
-                    }
-                    if (tree.Count >= N)
-                    {
-                        i = 0;
-                        break;
                     }
                 }
-
-                //for (int i = 1; i < tree.Count; i++)
-                //{
-                //    Console.WriteLine(i + " - " + tree[i].Item1);
-                //}
+                catch (ArgumentOutOfRangeException e)
+                {
+                    tree.Clear();
+                    goto treeGeneration;
+                }
 
                 int freeNodesQuantity = 0;
-                //Console.WriteLine("Free nodes");
                 for (int i = 1; i < tree.Count; i++)
-                {
                     if (tree[i].Item2)
-                    {
-                        //Console.WriteLine(i + " - " + tree[i].Item1);
                         freeNodesQuantity++;
-                    }
-                }
                 alphas.Add((double)tree.Count / (double)freeNodesQuantity);
                 freeNodesQuantities.Add(freeNodesQuantity);
                 tree = new List<Tuple<int, bool>>();
@@ -80,7 +77,7 @@ namespace KPO
 
             Console.WriteLine("Average free nodes = " + freeNodesQuantities.Average());
             Console.WriteLine("Average alpha = " + alphas.Average());
-            
+
         }
 
     }
