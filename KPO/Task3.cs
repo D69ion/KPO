@@ -78,6 +78,12 @@ namespace KPO
             Console.WriteLine("Average free nodes = " + freeNodesQuantities.Average());
             Console.WriteLine("Average alpha = " + alphas.Average());
 
+            double a = 0.0;
+            for (int i = 0; i < alphas.Count; i++)
+                a += Math.Pow(alphas[i], 2);
+            a /= alphas.Count;
+            alphaDispersion = a - Math.Pow(alphas.Sum() / alphas.Count(), 2);
+            Console.WriteLine("Alpha dispersion = " + alphaDispersion);
         }
 
     }
