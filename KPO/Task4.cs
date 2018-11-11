@@ -12,12 +12,14 @@ namespace KPO
         private const int m = 6, N = 200, R = 100;
         private List<Tuple<int, bool>> tree;
         private double alpha;
+        private List<Tuple<double, int>> alphas;
 
         public Task4()
         {
             random = new Random();
             tree = new List<Tuple<int, bool>>();
             alpha = 0.0;
+            alphas = new List<Tuple<double, int>>();
         }
 
         public void Start()
@@ -47,11 +49,25 @@ namespace KPO
                             goto treeGeneration;
                         }
                     }
+
+                    //подсчет альфа на каждой итерации генерации дерева
+                    int freeNodes = 0;
+                    for (int k = 1; k < tree.Count; k++)
+                    {
+                        if (tree[k].Item2)
+                        {
+                            Console.WriteLine(i + " - " + tree[k].Item1);
+                            freeNodes++;
+                        }
+                    }
+                    alpha = (double)tree.Count / (double)freeNodes;
+                    alphas.Add(new Tuple<double, int>(alpha, tree.Count));
+
                     if (tree.Count >= N)
                         break;
                 }
             }
-            catch (ArgumentOutOfRangeException e)
+            catch (ArgumentOutOfRangeException)
             {
                 tree.Clear();
                 goto treeGeneration;
@@ -62,18 +78,24 @@ namespace KPO
                 Console.WriteLine(i + " - " + tree[i].Item1);
             }
 
-            int freeNodesQuantity = 0;
-            Console.WriteLine("Free nodes");
-            for (int i = 1; i < tree.Count; i++)
+            //int freeNodesQuantity = 0;
+            //Console.WriteLine("Free nodes");
+            //for (int i = 1; i < tree.Count; i++)
+            //{
+            //    if (tree[i].Item2)
+            //    {
+            //        Console.WriteLine(i + " - " + tree[i].Item1);
+            //        freeNodesQuantity++;
+            //    }
+            //}
+            //alpha = (double)tree.Count / (double)freeNodesQuantity;
+            //Console.WriteLine("alpha = " + alpha);
+
+            Console.WriteLine("alphas:");
+            for (int i = 0; i < alphas.Count; i++)
             {
-                if (tree[i].Item2)
-                {
-                    Console.WriteLine(i + " - " + tree[i].Item1);
-                    freeNodesQuantity++;
-                }
+                Console.WriteLine(alphas[i].Item1 + " " + alphas[i].Item2);
             }
-            alpha = (double)tree.Count / (double)freeNodesQuantity;
-            Console.WriteLine("alpha = " + alpha);
         }
     }
 }
