@@ -52,7 +52,7 @@ namespace KPO
                         break;
                 }
             }
-            catch (ArgumentOutOfRangeException e)
+            catch (ArgumentOutOfRangeException)
             {
                 tree.Clear();
                 goto treeGeneration;
