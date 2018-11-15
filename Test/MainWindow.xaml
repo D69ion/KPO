@@ -8,15 +8,21 @@
         xmlns:zoom="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
         mc:Ignorable="d"
         x:Name="root"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="2000" Width="2000">
     <Grid>
-        <zoom:ZoomControl>
+        <zoom:ZoomControl Margin="344,0,0,0">
             <graphsharp:GraphLayout x:Name="graphLayout"
-                                Graph="{Binding ElementName=root, Path=GraphToVisualize}"
+                                Graph="{Binding GraphToVisualize, ElementName=root}"
                                 LayoutAlgorithmType="FR"
                                 OverlapRemovalAlgorithmType="FSA"
-                                HighlightAlgorithmType="Simple"/>
+                                HighlightAlgorithmType="Simple" Margin="-3,0"/>
         </zoom:ZoomControl>
-
+        <ScrollViewer Margin="0,6,1654,0">
+            <TextBlock x:Name="TxtOut" TextWrapping="Wrap"
+                 FontSize="14"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                 Text="{Binding ElementName=TxtOut, Path=Text}"/>
+        </ScrollViewer>
     </Grid>
 </Window>

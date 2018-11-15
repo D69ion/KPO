@@ -34,13 +34,16 @@ namespace Test
         private int freeNodesQuantity;
         private double alpha;
 
-
         public MainWindow()
         {
             random = new Random();
             tree = new List<Tuple<int, bool>>();
             freeNodesQuantity = 0;
             alpha = 0.0;
+            TxtOut = new TextBlock
+            {
+                Text = ""
+            };
             Start();
             CreateGraphToVisualize();
             InitializeComponent();
@@ -57,16 +60,9 @@ namespace Test
                 g.AddVertex(vertices[i]);
             }
 
-            //???????????????
-            int parent = 0;
             for(int i = 2; i < tree.Count; i++)
             {
-                parent = tree[i].Item1;
-                if (tree[i - 1].Item1 == parent)
-                {
-                    g.AddEdge(new Edge<object>(vertices[i - 1], vertices[parent]));
-                }
-
+                g.AddEdge(new Edge<object>(vertices[tree[i].Item1], vertices[i]));
             }
 
             //g.AddEdge(new Edge<object>(vertices[0], vertices[1]));
@@ -115,10 +111,10 @@ namespace Test
                 goto treeGeneration;
             }
 
-            //for (int i = 1; i < tree.Count; i++)
-            //{
-            //    Console.WriteLine(i + " - " + tree[i].Item1);
-            //}
+            for (int i = 1; i < tree.Count; i++)
+            {
+                TxtOut.Text += i + " - " + tree[i].Item1 + Environment.NewLine;
+            }
 
             //Console.WriteLine("Free nodes");
             for (int i = 1; i < tree.Count; i++)
