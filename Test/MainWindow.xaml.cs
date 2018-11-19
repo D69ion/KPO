@@ -16,6 +16,26 @@ using QuickGraph;
 
 namespace Test
 {
+    public class TextSource
+    {
+        private string _text;
+        public string Text
+        {
+            get { return _text; }
+        }
+
+        public TextSource()
+        {
+            _text = "";
+        }
+
+        public void AddText(string src)
+        {
+            this._text += src;
+        }
+
+    }
+
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
@@ -33,6 +53,7 @@ namespace Test
         private List<Tuple<int, bool>> tree;
         private int freeNodesQuantity;
         private double alpha;
+        TextSource text;
 
         public MainWindow()
         {
@@ -40,10 +61,8 @@ namespace Test
             tree = new List<Tuple<int, bool>>();
             freeNodesQuantity = 0;
             alpha = 0.0;
-            TxtOut = new TextBlock
-            {
-                Text = ""
-            };
+            TxtOut = new TextBlock();
+            text = new TextSource();
             Start();
             CreateGraphToVisualize();
             InitializeComponent();
@@ -111,11 +130,15 @@ namespace Test
                 goto treeGeneration;
             }
 
+            string str = "";
             for (int i = 1; i < tree.Count; i++)
             {
+                //str += i + " - " + tree[i].Item1 + Environment.NewLine;
                 TxtOut.Text += i + " - " + tree[i].Item1 + Environment.NewLine;
+                //text.AddText(i + " - " + tree[i].Item1 + Environment.NewLine);
             }
-
+            
+            //TxtOut.Text = str;
             //Console.WriteLine("Free nodes");
             for (int i = 1; i < tree.Count; i++)
             {

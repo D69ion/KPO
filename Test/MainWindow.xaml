@@ -12,7 +12,7 @@
     <Grid>
         <zoom:ZoomControl Margin="344,0,0,0">
             <graphsharp:GraphLayout x:Name="graphLayout"
-                                Graph="{Binding GraphToVisualize, ElementName=root}"
+                                Graph="{Binding Path=GraphToVisualize, ElementName=root}"
                                 LayoutAlgorithmType="FR"
                                 OverlapRemovalAlgorithmType="FSA"
                                 HighlightAlgorithmType="Simple" Margin="-3,0"/>
@@ -22,7 +22,8 @@
                  FontSize="14"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                 Text="{Binding ElementName=TxtOut, Path=Text}"/>
+                 />
+            <!--Text="{Binding ElementName=TxtBox, Path=Text}"-->
         </ScrollViewer>
     </Grid>
 </Window>
