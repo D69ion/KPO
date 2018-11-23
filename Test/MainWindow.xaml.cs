@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,36 +17,36 @@ using QuickGraph;
 
 namespace Test
 {
-    public class TextSource
-    {
-        private string _text;
-        public string Text
-        {
-            get { return _text; }
-        }
-
-        public TextSource()
-        {
-            _text = "";
-        }
-
-        public void AddText(string src)
-        {
-            this._text += src;
-        }
-
-    }
 
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private IBidirectionalGraph<object, IEdge<object>> _graphToVisualize;
 
         public IBidirectionalGraph<object, IEdge<object>> GraphToVisualize
         {
-            get { return _graphToVisualize; }
+            get { return this._graphToVisualize; }
+            set
+            {
+                if (!Equals(value, this._graphToVisualize))
+                {
+                    this._graphToVisualize = value;
+                    this.RaisePropChanged("GraphToVisualize");
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void RaisePropChanged(string name)
+        {
+            var eh = this.PropertyChanged;
+            if (eh != null)
+            {
+                eh(this, new PropertyChangedEventArgs(name));
+            }
         }
 
         private static Random random;
@@ -53,7 +54,6 @@ namespace Test
         private List<Tuple<int, bool>> tree;
         private int freeNodesQuantity;
         private double alpha;
-        TextSource text;
 
         public MainWindow()
         {
@@ -61,11 +61,32 @@ namespace Test
             tree = new List<Tuple<int, bool>>();
             freeNodesQuantity = 0;
             alpha = 0.0;
-            TxtOut = new TextBlock();
-            text = new TextSource();
-            Start();
-            CreateGraphToVisualize();
             InitializeComponent();
+        }
+
+        private void PrintResult()
+        {
+            for (int i = 1; i < tree.Count; i++)
+            {
+                TxtOut.Text += i + " - " + tree[i].Item1 + Environment.NewLine;
+            }
+
+            TxtOut.Text += "Free nodes" + Environment.NewLine;
+            for (int i = 1; i < tree.Count; i++)
+            {
+                if (tree[i].Item2)
+                {
+                    TxtOut.Text += i + " - " + tree[i].Item1 + Environment.NewLine;
+                }
+            }
+            TxtOut.Text += "alpha = " + alpha;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            GraphGeneration(random.Next(0, m));
+            CreateGraphToVisualize();
+            PrintResult();
         }
 
         private void CreateGraphToVisualize()
@@ -84,16 +105,10 @@ namespace Test
                 g.AddEdge(new Edge<object>(vertices[tree[i].Item1], vertices[i]));
             }
 
-            //g.AddEdge(new Edge<object>(vertices[0], vertices[1]));
-            //g.AddEdge(new Edge<object>(vertices[1], vertices[2]));
-            //g.AddEdge(new Edge<object>(vertices[2], vertices[3]));
-            //g.AddEdge(new Edge<object>(vertices[3], vertices[1]));
-            //g.AddEdge(new Edge<object>(vertices[1], vertices[4]));
-
-            _graphToVisualize = g;
+            GraphToVisualize = g;
         }
 
-        public void Start()
+        public void GraphGeneration(int childQuantity)
         {
             treeGeneration:
             tree.Add(null);
@@ -102,7 +117,7 @@ namespace Test
             {
                 for (int i = 1; ; i++)
                 {
-                    int childQuantity = random.Next(0, 6);
+                    //int childQuantity = random.Next(0, 6);
                     if (childQuantity == 0)
                         continue;
                     for (int j = 0; j < childQuantity; j++)
@@ -130,26 +145,14 @@ namespace Test
                 goto treeGeneration;
             }
 
-            string str = "";
-            for (int i = 1; i < tree.Count; i++)
-            {
-                //str += i + " - " + tree[i].Item1 + Environment.NewLine;
-                TxtOut.Text += i + " - " + tree[i].Item1 + Environment.NewLine;
-                //text.AddText(i + " - " + tree[i].Item1 + Environment.NewLine);
-            }
-            
-            //TxtOut.Text = str;
-            //Console.WriteLine("Free nodes");
             for (int i = 1; i < tree.Count; i++)
             {
                 if (tree[i].Item2)
                 {
-                    //Console.WriteLine(i + " - " + tree[i].Item1);
                     freeNodesQuantity++;
                 }
             }
             alpha = (double)tree.Count / (double)freeNodesQuantity;
-            //Console.WriteLine("alpha = " + alpha);
         }
     }
 }
