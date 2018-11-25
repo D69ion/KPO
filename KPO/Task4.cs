@@ -40,6 +40,20 @@ namespace KPO
                         {
                             tree.Add(new Tuple<int, bool>(i, true));
                             tree[i] = new Tuple<int, bool>(tree[i].Item1, false);
+
+                            //подсчет альфа на каждой итерации генерации дерева
+                            int freeNodes = 0;
+                            for (int k = 1; k < tree.Count; k++)
+                            {
+                                if (tree[k].Item2)
+                                {
+                                    Console.WriteLine(i + " - " + tree[k].Item1);
+                                    freeNodes++;
+                                }
+                            }
+                            alpha = (double)tree.Count / (double)freeNodes;
+                            alphas.Add(new Tuple<double, int>(alpha, tree.Count - 1));
+
                         }
                         else
                             break;
@@ -50,18 +64,6 @@ namespace KPO
                         }
                     }
 
-                    //подсчет альфа на каждой итерации генерации дерева
-                    int freeNodes = 0;
-                    for (int k = 1; k < tree.Count; k++)
-                    {
-                        if (tree[k].Item2)
-                        {
-                            Console.WriteLine(i + " - " + tree[k].Item1);
-                            freeNodes++;
-                        }
-                    }
-                    alpha = (double)tree.Count / (double)freeNodes;
-                    alphas.Add(new Tuple<double, int>(alpha, tree.Count));
 
                     if (tree.Count >= N)
                         break;
