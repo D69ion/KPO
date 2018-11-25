@@ -70,9 +70,9 @@ namespace Test
             freeNodesQuantity = 0;
             alpha = 0.0;
             TxtOut.Text = "";
-            GraphGeneration(random.Next(0, m));
-            CreateGraphToVisualize();
-            PrintTree();
+            GraphGeneration(1);
+            CreateGraphToVisualize(tree.Count);
+            PrintTree(tree.Count);
         }
 
         private void Task2Button_Click(object sender, RoutedEventArgs e)
@@ -81,9 +81,9 @@ namespace Test
             freeNodesQuantity = 0;
             alpha = 0.0;
             TxtOut.Text = "";
-            GraphGeneration(3);
-            CreateGraphToVisualize();
-            PrintTree();
+            GraphGeneration(0);
+            CreateGraphToVisualize(tree.Count);
+            PrintTree(tree.Count);
         }
 
         private void Task3Button_Click(object sender, RoutedEventArgs e)
@@ -96,13 +96,13 @@ namespace Test
                 freeNodesQuantity = 0;
                 alpha = 0.0;
                 TxtOut.Text = "";
-                GraphGeneration(random.Next(0, m));
+                GraphGeneration(1);
                 alphas.Add(alpha);
                 freeNodesQuantities.Add(freeNodesQuantity);
             }
 
-            TxtOut.Text += "Average free nodes" + alphas.Average() + Environment.NewLine;
-            TxtOut.Text += "Average alphas" + alphas.Average() + Environment.NewLine;
+            TxtOut.Text += "Average free nodes = " + freeNodesQuantities.Average() + Environment.NewLine;
+            TxtOut.Text += "Average alphas = " + alphas.Average() + Environment.NewLine;
 
             double a = 0.0;
             double alphaDispersion = 0.0;
@@ -120,8 +120,8 @@ namespace Test
             alpha = 0.0;
             TxtOut.Text = "";
             List<double> alphas = GraphGenerationTask4(random.Next(0, m));
-            CreateGraphToVisualize();
-            PrintTree();
+            CreateGraphToVisualize(21);
+            PrintTree(21);
             TxtOut.Text += "Alphas:" + Environment.NewLine;
             for(int i = 0; i < alphas.Count; i++)
             {
@@ -129,18 +129,18 @@ namespace Test
             }
         }
 
-        private void CreateGraphToVisualize()
+        private void CreateGraphToVisualize(int count)
         {
             var g = new BidirectionalGraph<object, IEdge<object>>();
 
-            string[] vertices = new string[tree.Count];
-            for (int i = 0; i < tree.Count; i++)
+            string[] vertices = new string[count];
+            for (int i = 0; i < count; i++)
             {
                 vertices[i] = i.ToString();
                 g.AddVertex(vertices[i]);
             }
 
-            for(int i = 2; i < tree.Count; i++)
+            for(int i = 2; i < count; i++)
             {
                 g.AddEdge(new Edge<object>(vertices[tree[i].Item1], vertices[i]));
             }
@@ -148,8 +148,9 @@ namespace Test
             GraphToVisualize = g;
         }
 
-        public void GraphGeneration(int childQuantity)
+        public void GraphGeneration(int flag)
         {
+            int childQuantity = 3;
             treeGeneration:
             tree.Add(null);
             tree.Add(new Tuple<int, bool>(0, false));
@@ -157,6 +158,8 @@ namespace Test
             {
                 for (int i = 1; ; i++)
                 {
+                    if (flag == 1)
+                        childQuantity = random.Next(0, m);
                     if (childQuantity == 0)
                         continue;
                     for (int j = 0; j < childQuantity; j++)
@@ -249,15 +252,15 @@ namespace Test
             return alphas;
         }
 
-        private void PrintTree()
+        private void PrintTree(int count)
         {
-            for (int i = 1; i < tree.Count; i++)
+            for (int i = 1; i < count; i++)
             {
                 TxtOut.Text += i + " - " + tree[i].Item1 + Environment.NewLine;
             }
 
             TxtOut.Text += "Free nodes" + Environment.NewLine;
-            for (int i = 1; i < tree.Count; i++)
+            for (int i = 1; i < count; i++)
             {
                 if (tree[i].Item2)
                 {
