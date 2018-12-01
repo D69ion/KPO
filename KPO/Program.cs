@@ -11,19 +11,19 @@ namespace KPO
 
         static void Main(string[] args)
         {
-            //Console.WriteLine("Task 1");
-            //Task1 task1 = new Task1();
-            //task1.Start();
+            Console.WriteLine("Task 1");
+            Task1 task1 = new Task1();
+            task1.Start();
             //Console.ReadLine();
 
-            //Console.WriteLine("Task 2");
-            //Task2 task2 = new Task2();
-            //task2.Start();
+            Console.WriteLine("Task 2");
+            Task2 task2 = new Task2();
+            task2.Start();
             //Console.ReadLine();
 
-            //Console.WriteLine("Task 3");
-            //Task3 task3 = new Task3();
-            //task3.Start();
+            Console.WriteLine("Task 3");
+            Task3 task3 = new Task3();
+            task3.Start();
             //Console.ReadLine();
 
             Console.WriteLine("Task 4");

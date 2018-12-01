@@ -72,7 +72,7 @@ namespace Test
             TxtOut.Text = "";
             GraphGeneration(1);
             CreateGraphToVisualize(tree.Count);
-            PrintTree(tree.Count);
+            PrintTreeNodes(tree.Count);
         }
 
         private void Task2Button_Click(object sender, RoutedEventArgs e)
@@ -83,7 +83,7 @@ namespace Test
             TxtOut.Text = "";
             GraphGeneration(0);
             CreateGraphToVisualize(tree.Count);
-            PrintTree(tree.Count);
+            PrintTreeNodes(tree.Count);
         }
 
         private void Task3Button_Click(object sender, RoutedEventArgs e)
@@ -121,9 +121,9 @@ namespace Test
             TxtOut.Text = "";
             List<double> alphas = GraphGenerationTask4(random.Next(0, m));
             CreateGraphToVisualize(21);
-            PrintTree(21);
+            PrintTreeNodes(21);
             TxtOut.Text += "Alphas:" + Environment.NewLine;
-            for(int i = 0; i < alphas.Count; i++)
+            for (int i = 0; i < alphas.Count; i++)
             {
                 TxtOut.Text += alphas[i] + " " + (i + 1) + Environment.NewLine;
             }
@@ -159,7 +159,7 @@ namespace Test
                 for (int i = 1; ; i++)
                 {
                     if (flag == 1)
-                        childQuantity = random.Next(0, m);
+                        childQuantity = random.Next(-1, m);
                     if (childQuantity == 0)
                         continue;
                     for (int j = 0; j < childQuantity; j++)
@@ -239,7 +239,6 @@ namespace Test
                         }
                     }
 
-
                     if (tree.Count >= N)
                         break;
                 }
@@ -252,7 +251,7 @@ namespace Test
             return alphas;
         }
 
-        private void PrintTree(int count)
+        private void PrintTreeNodes(int count)
         {
             for (int i = 1; i < count; i++)
             {

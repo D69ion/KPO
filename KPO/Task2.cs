@@ -8,14 +8,12 @@ namespace KPO
 {
     class Task2
     {
-        //private static Random random;
         private const int m = 6, N = 200, R = 100;
         private List<Tuple<int, bool>> tree;
         private double alpha;
 
         public Task2()
         {
-            //random = new Random();
             tree = new List<Tuple<int, bool>>();
             alpha = 0.0;
         }
@@ -29,7 +27,7 @@ namespace KPO
             {
                 for (int i = 1; ; i++)
                 {
-                    int childQuantity = 3;//random.Next(0, 6);
+                    int childQuantity = 3;
                     if (childQuantity == 0)
                         continue;
                     for (int j = 0; j < childQuantity; j++)
@@ -58,18 +56,18 @@ namespace KPO
                 goto treeGeneration;
             }
 
-            for (int i = 1; i < tree.Count; i++)
-            {
-                Console.WriteLine(i + " - " + tree[i].Item1);
-            }
+            //for (int i = 1; i < tree.Count; i++)
+            //{
+            //    Console.WriteLine(i + " - " + tree[i].Item1);
+            //}
 
+            //Console.WriteLine("Free nodes");
             int freeNodesQuantity = 0;
-            Console.WriteLine("Free nodes");
             for (int i = 1; i < tree.Count; i++)
             {
                 if (tree[i].Item2)
                 {
-                    Console.WriteLine(i + " - " + tree[i].Item1);
+                    //Console.WriteLine(i + " - " + tree[i].Item1);
                     freeNodesQuantity++;
                 }
             }

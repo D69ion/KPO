@@ -24,6 +24,7 @@ namespace KPO
         public void Start()
         {
             treeGeneration:
+            int level = 1;
             tree.Add(null);
             tree.Add(new Tuple<int, bool>(0, false));
             try
@@ -48,6 +49,7 @@ namespace KPO
                             goto treeGeneration;
                         }
                     }
+
                     if (tree.Count >= N)
                         break;
                 }
@@ -58,23 +60,33 @@ namespace KPO
                 goto treeGeneration;
             }
 
+            //поиск глубины
+            int lastNode = tree[tree.Count - 1].Item1;
+            while (tree[lastNode].Item1 != 1)
+            {
+                lastNode = tree[lastNode].Item1;
+                level++;
+            }
+            level += 2;
+
             for (int i = 1; i < tree.Count; i++)
             {
                 Console.WriteLine(i + " - " + tree[i].Item1);
             }
 
+            //Console.WriteLine("Free nodes");
             int freeNodesQuantity = 0;
-            Console.WriteLine("Free nodes");
             for (int i = 1; i < tree.Count; i++)
             {
                 if (tree[i].Item2)
                 {
-                    Console.WriteLine(i + " - " + tree[i].Item1);
+                    //Console.WriteLine(i + " - " + tree[i].Item1);
                     freeNodesQuantity++;
                 }
             }
             alpha = (double)tree.Count / (double)freeNodesQuantity;
             Console.WriteLine("alpha = " + alpha);
+            Console.WriteLine("level: " + level);
         }
     }
 }

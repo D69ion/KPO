@@ -47,7 +47,6 @@ namespace KPO
                             {
                                 if (tree[k].Item2)
                                 {
-                                    Console.WriteLine(i + " - " + tree[k].Item1);
                                     freeNodes++;
                                 }
                             }
@@ -75,26 +74,13 @@ namespace KPO
                 goto treeGeneration;
             }
 
-            for (int i = 1; i < tree.Count; i++)
-            {
-                Console.WriteLine(i + " - " + tree[i].Item1);
-            }
-
-            //int freeNodesQuantity = 0;
-            //Console.WriteLine("Free nodes");
             //for (int i = 1; i < tree.Count; i++)
             //{
-            //    if (tree[i].Item2)
-            //    {
-            //        Console.WriteLine(i + " - " + tree[i].Item1);
-            //        freeNodesQuantity++;
-            //    }
+            //    Console.WriteLine(i + " - " + tree[i].Item1);
             //}
-            //alpha = (double)tree.Count / (double)freeNodesQuantity;
-            //Console.WriteLine("alpha = " + alpha);
 
             Console.WriteLine("alphas:");
-            for (int i = 0; i < alphas.Count; i++)
+            for (int i = 0; i < 20; i++)
             {
                 Console.WriteLine(alphas[i].Item1 + " " + alphas[i].Item2);
             }
