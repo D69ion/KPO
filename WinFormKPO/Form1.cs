@@ -112,12 +112,21 @@ namespace WinFormKPO
 
             CreateDotFile();
             System.Diagnostics.Process graphviz = new System.Diagnostics.Process();
-            graphviz.StartInfo.FileName = @"D:\Projects C#\KPO\WinFormKPO\graphviz\dot.exe";
+            graphviz.StartInfo.FileName = @"C:\WINDOWS\system32\cmd.exe";
             graphviz.StartInfo.RedirectStandardOutput = true;
+            graphviz.StartInfo.RedirectStandardInput = true;
             graphviz.StartInfo.UseShellExecute = false;
             graphviz.StartInfo.CreateNoWindow = true;
-            graphviz.StartInfo.Arguments = string.Format("{0} -Tjpg -0", @"D:\Projects C#\KPO\WinFormKPO\graphviz\graph.dot");
             graphviz.Start();
+
+            using(StreamWriter cmd = graphviz.StandardInput)
+            {
+                if (cmd.BaseStream.CanWrite)
+                {
+                    cmd.WriteLine(@"pushd D:\Projects C#\KPO\WinFormKPO\graphviz");
+                    cmd.WriteLine(@"dot -Tpng graph.dot -o graph.png");
+                }
+            }
             graphviz.WaitForExit();
         }
 
@@ -125,9 +134,14 @@ namespace WinFormKPO
         {
             StringBuilder dotString = new StringBuilder();
             dotString.Append("graph test{" + Environment.NewLine + "node [shape = box]" + Environment.NewLine);
+            for(int i = 1; i < 21;  i++)
+            {
+                dotString.Append(string.Format("\"{0}\"[label=\"{0} - {1}\"]", i, tree[i].Item1)).Append(Environment.NewLine);
+            }
+            dotString.Append(Environment.NewLine);
             for(int i = 2; i < 21; i++)
             {
-                dotString.Append(string.Format("\"{0} - {1}\" -- \"{1}\"", i, tree[i].Item1)).
+                dotString.Append(string.Format("\"{0}\" -- \"{1}\"", i, tree[i].Item1)).
                     Append(Environment.NewLine);
             }
             dotString.Append("}");
