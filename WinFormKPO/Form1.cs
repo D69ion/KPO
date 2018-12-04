@@ -75,8 +75,7 @@ namespace WinFormKPO
                 freeNodesQuantities.Add(freeNodesQuantity);
                 levels.Add(level);
                 nodeQuantities.Add(tree.Count - 1);
-                //textBox.Text += "№" + i + Environment.NewLine;
-                //PrintTreeNodes(tree.Count);
+                PrintTreeInfo(i);
             }
 
             textBox.Text += "Average node quantities = " + nodeQuantities.Average() + Environment.NewLine;
@@ -110,24 +109,24 @@ namespace WinFormKPO
                 textBox.Text += i + ": " + alphas[i] + Environment.NewLine;
             }
 
-            CreateDotFile();
-            System.Diagnostics.Process graphviz = new System.Diagnostics.Process();
-            graphviz.StartInfo.FileName = @"C:\WINDOWS\system32\cmd.exe";
-            graphviz.StartInfo.RedirectStandardOutput = true;
-            graphviz.StartInfo.RedirectStandardInput = true;
-            graphviz.StartInfo.UseShellExecute = false;
-            graphviz.StartInfo.CreateNoWindow = true;
-            graphviz.Start();
+            //CreateDotFile();
+            //System.Diagnostics.Process graphviz = new System.Diagnostics.Process();
+            //graphviz.StartInfo.FileName = @"C:\WINDOWS\system32\cmd.exe";
+            //graphviz.StartInfo.RedirectStandardOutput = true;
+            //graphviz.StartInfo.RedirectStandardInput = true;
+            //graphviz.StartInfo.UseShellExecute = false;
+            //graphviz.StartInfo.CreateNoWindow = true;
+            //graphviz.Start();
 
-            using(StreamWriter cmd = graphviz.StandardInput)
-            {
-                if (cmd.BaseStream.CanWrite)
-                {
-                    cmd.WriteLine(@"pushd D:\Projects C#\KPO\WinFormKPO\graphviz");
-                    cmd.WriteLine(@"dot -Tpng graph.dot -o graph.png");
-                }
-            }
-            graphviz.WaitForExit();
+            //using(StreamWriter cmd = graphviz.StandardInput)
+            //{
+            //    if (cmd.BaseStream.CanWrite)
+            //    {
+            //        cmd.WriteLine(@"pushd D:\Projects C#\KPO\WinFormKPO\graphviz");
+            //        cmd.WriteLine(@"dot -Tpng graph.dot -o graph.png");
+            //    }
+            //}
+            //graphviz.WaitForExit();
         }
 
         private void CreateDotFile()
@@ -333,23 +332,45 @@ namespace WinFormKPO
 
         private void PrintTreeNodes(int count)
         {
+            textBox.Text += "Nodes" + Environment.NewLine;
             for (int i = 1; i < count; i++)
             {
-                textBox.Text += i + " - " + tree[i].Item1 + Environment.NewLine;
+                textBox.Text += i + " - " + tree[i].Item1 + ", ";
             }
-
+            textBox.Text += "Nodes quantity = " + (tree.Count - 1) + Environment.NewLine + Environment.NewLine;
+            
+            int freeNodes = 0;
             textBox.Text += "Free nodes" + Environment.NewLine;
             for (int i = 1; i < count; i++)
             {
                 if (tree[i].Item2)
                 {
-                    textBox.Text += i + " - " + tree[i].Item1 + Environment.NewLine;
+                    textBox.Text += i + " - " + tree[i].Item1 + ", ";
+                    freeNodes++;
                 }
             }
+            textBox.Text += "Free nodes quantity = " + freeNodes + Environment.NewLine + Environment.NewLine;
             textBox.Text += "alpha = " + alpha + Environment.NewLine;
             textBox.Text += "expected value = " + expectedValue + Environment.NewLine;
-            textBox.Text += "level: " + level + Environment.NewLine;
-            textBox.Text += Environment.NewLine;
+            textBox.Text += "level: " + level + Environment.NewLine + Environment.NewLine;
+        }
+
+        private void PrintTreeInfo(int number)
+        {
+            textBox.Text += "№" + (number + 1) + Environment.NewLine;
+            textBox.Text += "Nodes quantity = " + (tree.Count - 1) + Environment.NewLine;
+            int freeNodes = 0;
+            for (int i = 1; i < tree.Count - 1; i++)
+            {
+                if (tree[i].Item2)
+                {
+                    freeNodes++;
+                }
+            }
+            textBox.Text += "Free nodes quantity = " + freeNodes + Environment.NewLine;
+            textBox.Text += "alpha = " + alpha + Environment.NewLine;
+            textBox.Text += "expected value = " + expectedValue + Environment.NewLine;
+            textBox.Text += "level: " + level + Environment.NewLine + Environment.NewLine;
         }
     }
 }

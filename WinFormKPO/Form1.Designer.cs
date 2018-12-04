@@ -39,16 +39,18 @@
             // 
             // textBox
             // 
+            this.textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox.Location = new System.Drawing.Point(12, 3);
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
             this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox.Size = new System.Drawing.Size(153, 400);
+            this.textBox.Size = new System.Drawing.Size(179, 630);
             this.textBox.TabIndex = 0;
             // 
             // zedGraphControl
             // 
-            this.zedGraphControl.Location = new System.Drawing.Point(171, 42);
+            this.zedGraphControl.AutoSize = true;
+            this.zedGraphControl.Location = new System.Drawing.Point(197, 53);
             this.zedGraphControl.Name = "zedGraphControl";
             this.zedGraphControl.ScrollGrace = 0D;
             this.zedGraphControl.ScrollMaxX = 0D;
@@ -57,13 +59,13 @@
             this.zedGraphControl.ScrollMinX = 0D;
             this.zedGraphControl.ScrollMinY = 0D;
             this.zedGraphControl.ScrollMinY2 = 0D;
-            this.zedGraphControl.Size = new System.Drawing.Size(634, 361);
+            this.zedGraphControl.Size = new System.Drawing.Size(1016, 580);
             this.zedGraphControl.TabIndex = 1;
             this.zedGraphControl.UseExtendedPrintDialog = true;
             // 
             // buttonTask1
             // 
-            this.buttonTask1.Location = new System.Drawing.Point(198, 13);
+            this.buttonTask1.Location = new System.Drawing.Point(252, 12);
             this.buttonTask1.Name = "buttonTask1";
             this.buttonTask1.Size = new System.Drawing.Size(75, 23);
             this.buttonTask1.TabIndex = 2;
@@ -73,7 +75,7 @@
             // 
             // buttonTask2
             // 
-            this.buttonTask2.Location = new System.Drawing.Point(279, 13);
+            this.buttonTask2.Location = new System.Drawing.Point(333, 12);
             this.buttonTask2.Name = "buttonTask2";
             this.buttonTask2.Size = new System.Drawing.Size(75, 23);
             this.buttonTask2.TabIndex = 3;
@@ -83,7 +85,7 @@
             // 
             // buttonTask3
             // 
-            this.buttonTask3.Location = new System.Drawing.Point(360, 13);
+            this.buttonTask3.Location = new System.Drawing.Point(414, 12);
             this.buttonTask3.Name = "buttonTask3";
             this.buttonTask3.Size = new System.Drawing.Size(75, 23);
             this.buttonTask3.TabIndex = 4;
@@ -93,7 +95,7 @@
             // 
             // buttonTask4
             // 
-            this.buttonTask4.Location = new System.Drawing.Point(441, 13);
+            this.buttonTask4.Location = new System.Drawing.Point(495, 12);
             this.buttonTask4.Name = "buttonTask4";
             this.buttonTask4.Size = new System.Drawing.Size(75, 23);
             this.buttonTask4.TabIndex = 5;
@@ -105,7 +107,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(817, 415);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1225, 645);
             this.Controls.Add(this.buttonTask4);
             this.Controls.Add(this.buttonTask3);
             this.Controls.Add(this.buttonTask2);
